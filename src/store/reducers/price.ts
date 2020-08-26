@@ -2,14 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PayloadType } from './types'
 
 export interface IPriceStore {
-  address: string
-  price: number
+  [address: string]: number
 }
 
-const defaultStatus: IPriceStore = {
-  address: '',
-  price: 0
-}
+const defaultStatus: IPriceStore = {}
 
 export const sliceName = 'price'
 const priceSlice = createSlice({
