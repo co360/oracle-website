@@ -2,7 +2,7 @@ import { call, put, takeLeading } from 'typed-redux-saga'
 
 import { actions, Status } from '@reducers/provider'
 import { getSigner } from '@web3/access'
-import { getAddress } from '@web3/signer'
+import { getLatestPrice } from '@web3/Contracts/Oracle'
 
 export function* initProvider(): Generator {
   if (!window.ethereum) {
@@ -12,7 +12,7 @@ export function* initProvider(): Generator {
   }
   const response = yield* call(getSigner)
   console.log(response.getChainId())
-  const a = yield* call(getAddress)
+  const a = yield* call(getLatestPrice)
   // This does not work why ? We have to write wrappers functions to use them in sagas for web3
   // const address = yield* call(response.getAddress)
   // console.log(address)
