@@ -15,7 +15,6 @@ const OracleTest: React.FC = () => {
     dispatch(actions.initProvider())
   }
   const provider = (status: Status) => {
-    console.log(status)
     if (status === Status.Initalized) {
       return <Typography className={classes.message}>Provider initialized</Typography>
     } else if (status === Status.Uninitialized || status === Status.Init) {
@@ -29,10 +28,9 @@ const OracleTest: React.FC = () => {
     }
   }
 
-  return (
-    <Grid>
-      <Grid>{provider(currentStatus)}</Grid>
-      <Grid>
+  const getPrice = (status: Status) => {
+    if (status === Status.Initalized) {
+      return (
         <Button
           variant='outlined'
           size='large'
@@ -42,7 +40,14 @@ const OracleTest: React.FC = () => {
           }}>
           Get price
         </Button>
-      </Grid>
+      )
+    }
+  }
+
+  return (
+    <Grid>
+      <Grid>{provider(currentStatus)}</Grid>
+      <Grid>{getPrice(currentStatus)}</Grid>
     </Grid>
   )
 }

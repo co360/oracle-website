@@ -13,7 +13,6 @@ const priceSlice = createSlice({
   initialState: defaultStatus,
   reducers: {
     getPrice(state) {
-      console.log(state)
       return state
     }
   }
