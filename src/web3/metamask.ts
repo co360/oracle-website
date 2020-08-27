@@ -1,8 +1,13 @@
-import { ethers, providers, Signer } from 'ethers'
+import { Contract, ethers, providers, Signer } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+
 import { teams } from './teams'
+import oracle from '../build/contracts/Oraclefy.json'
 
 let provider: providers.JsonRpcProvider | null = null
 let signer: Signer | null = null
+let oraclefy: Contract
+
 export const getProvider = async () => {
   if (provider) {
     console.log('Already initialized')
@@ -20,6 +25,7 @@ export const getProvider = async () => {
       provider = new ethers.providers.JsonRpcProvider(
         `https://sandbox.truffleteams.com/${teams.projectId}`
       )
+      oraclefy = new ethers.Contract(teams.contracts.oracle, oracle.abi, provider as Provider)
       signer = provider.getSigner()
       return true
     }
@@ -27,4 +33,5 @@ export const getProvider = async () => {
     return false
   }
 }
-export { provider, signer }
+
+export { provider, signer, oraclefy }
