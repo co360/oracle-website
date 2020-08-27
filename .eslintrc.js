@@ -3,6 +3,7 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json'
   },
+  parser: '@typescript-eslint/parser',
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
@@ -12,6 +13,7 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     'generator-star-spacing': ['error', { before: false, after: true }],
+    'yield-star-spacing': ['error', { before: false, after: true }],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {

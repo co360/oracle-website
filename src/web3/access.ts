@@ -2,7 +2,7 @@ import { ethers, providers, Signer } from 'ethers'
 let _provider: providers.Web3Provider
 let _signer: Signer
 
-const getProvider = async () => {
+const getProvider = async (): Promise<providers.Web3Provider> => {
   if (_provider) {
     return _provider
   } else {
@@ -11,10 +11,11 @@ const getProvider = async () => {
   }
 }
 
-const getSigner = async () => {
+const getSigner = async (): Promise<Signer> => {
   if (!_provider) {
     _provider = new ethers.providers.Web3Provider(window.ethereum)
   }
+  await window.ethereum.enable()
   if (_signer) {
     return _signer
   } else {
