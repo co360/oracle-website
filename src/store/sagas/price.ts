@@ -10,13 +10,10 @@ function* getAssetPrice(oracleProvider: OracleProvider, asset: assets): Generato
 
 function* getPrices(): Generator {
   const oracleProvider = yield* call(OracleProvider.getInstance)
-  yield all([
-    call(getAssetPrice, oracleProvider, assets.ADA),
-    call(getAssetPrice, oracleProvider, assets.BNT),
-    call(getAssetPrice, oracleProvider, assets.BTC),
-    call(getAssetPrice, oracleProvider, assets.ADA),
-    call(getAssetPrice, oracleProvider, assets.BCH)
-  ])
+  const getAssetPrices = Object.keys(assets).map((asset) =>
+    call(getAssetPrice, oracleProvider, asset as assets)
+  )
+  yield all(getAssetPrices)
 }
 
 export function* assetPriceSaga(): Generator {

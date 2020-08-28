@@ -23,22 +23,20 @@ interface IRoundData {
   answeredInRound: BigNumber
 }
 
-export type IPriceStore = {
+export type ContractsMap = {
   [key in assets]: Contract
 }
 
 export class OracleProvider {
   private static _instance: OracleProvider
-  // This should be disctionary assets to Contract
-  public contracts: IPriceStore
+  public contracts: ContractsMap
   private constructor(provider: providers.Web3Provider) {
-    const oracles = Object.fromEntries(
+    this.contracts = Object.fromEntries(
       Object.entries(UsdContractsAddresses).map(([asset, address]) => [
         asset,
         new Contract(address, AggregatorV3InterfaceABI, provider)
       ])
-    ) as IPriceStore
-    this.contracts = oracles
+    ) as ContractsMap
   }
 
   static async getInstance(): Promise<OracleProvider> {
