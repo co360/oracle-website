@@ -4,7 +4,6 @@ import { Button, Grid, Typography } from '@material-ui/core'
 
 import { status } from '@selectors/providers'
 import { actions, Status } from '@reducers/provider'
-import { actions as priceAction } from '@reducers/price'
 import useStyles from './style'
 
 const OracleTest: React.FC = () => {
@@ -31,13 +30,7 @@ const OracleTest: React.FC = () => {
   const getPrice = (status: Status) => {
     if (status === Status.Initalized) {
       return (
-        <Button
-          variant='outlined'
-          size='large'
-          color='primary'
-          onClick={() => {
-            dispatch(priceAction.getPrice())
-          }}>
+        <Button variant='outlined' size='large' color='primary'>
           Get price
         </Button>
       )

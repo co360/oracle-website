@@ -1,18 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { BigNumber } from 'ethers'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PayloadType } from './types'
+import { assets } from '@web3/Contracts/Oracle'
 
-export interface IPriceStore {
-  [address: string]: number
+export type IPriceStore = {
+  [key in assets]: BigNumber
 }
 
-const defaultStatus: IPriceStore = {}
+// need better solution how set default value for all keys ?
+const defaultStatus: IPriceStore = {
+  ADA: BigNumber.from(0),
+  ETH: BigNumber.from(0),
+  BCH: BigNumber.from(0),
+  BNT: BigNumber.from(0),
+  BTC: BigNumber.from(0)
+}
 
 export const sliceName = 'price'
 const priceSlice = createSlice({
   name: sliceName,
   initialState: defaultStatus,
   reducers: {
-    getPrice(state) {
+    setValue(state: IPriceStore, action: PayloadAction<{ asset: assets, value: BigNumber }>) {
+      state[action.payload.asset] = action.payload.value
+      return state
+    },
+    initializePrices(state: IPriceStore) {
       return state
     }
   }

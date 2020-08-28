@@ -1,8 +1,8 @@
 import { call, put, takeLeading } from 'typed-redux-saga'
 
 import { actions, Status } from '@reducers/provider'
-import { getSigner } from '@web3/access'
-import { getLatestPrice } from '@web3/Contracts/Oracle'
+import { getProvider } from '@web3/access'
+import { actions as priceActions } from '@reducers/price'
 
 export function* initProvider(): Generator {
   if (!window.ethereum) {
@@ -10,15 +10,15 @@ export function* initProvider(): Generator {
     yield put(actions.setStatus(Status.Error))
     return
   }
-  const response = yield* call(getSigner)
-  console.log(response.getChainId())
-  const a = yield* call(getLatestPrice)
+  const response = yield* call(getProvider)
+
   // This does not work why ? We have to write wrappers functions to use them in sagas for web3
   // const address = yield* call(response.getAddress)
   // console.log(address)
-  console.log(a)
 
   if (response) {
+    // initialize asset prices
+    yield put(priceActions.initializePrices())
     yield put(actions.setStatus(Status.Initalized))
   } else {
     yield put(actions.setStatus(Status.Error))
