@@ -23,13 +23,22 @@ interface IRoundData {
   answeredInRound: BigNumber
 }
 
+export type IPriceStore = {
+  [key in assets]: Contract
+}
+
 export class OracleProvider {
   private static _instance: OracleProvider
-  public contracts = new Map<string, Contract>()
+  // This should be disctionary assets to Contract
+  public contracts: IPriceStore
   private constructor(provider: providers.Web3Provider) {
-    for (const [key, value] of Object.entries(UsdContractsAddresses)) {
-      this.contracts.set(key, new Contract(value, AggregatorV3InterfaceABI, provider))
-    }
+    const oracles = Object.fromEntries(
+      Object.entries(UsdContractsAddresses).map(([asset, address]) => [
+        asset,
+        new Contract(address, AggregatorV3InterfaceABI, provider)
+      ])
+    ) as IPriceStore
+    this.contracts = oracles
   }
 
   static async getInstance(): Promise<OracleProvider> {
@@ -41,7 +50,7 @@ export class OracleProvider {
   }
 
   public latestRoundData = async (asset: assets = assets.ETH): Promise<IRoundData> => {
-    const response = await this.contracts.get(asset)?.latestRoundData()
+    const response = await this.contracts[asset].latestRoundData()
     return response
   }
 
@@ -50,9 +59,7 @@ export class OracleProvider {
     blockOffset: number = 1
   ): Promise<IRoundData> => {
     const latestRound = await this.latestRoundData()
-    const response = await this.contracts
-      .get(asset)
-      ?.getRoundData(latestRound.roundId.sub(blockOffset))
+    const response = await this.contracts[asset].getRoundData(latestRound.roundId.sub(blockOffset))
     return response
   }
 
