@@ -4,11 +4,14 @@ import { assets } from '@web3/Contracts/Oracle'
 import { PayloadType } from './types'
 
 export type IPriceStore = {
-  [key in assets]: BigNumber
+  [key in assets]: { currentValue: BigNumber, previousValue: BigNumber }
 }
 
 const defaultStatus: IPriceStore = Object.fromEntries(
-  Object.entries(assets).map(([asset, _]) => [asset, BigNumber.from(0)])
+  Object.entries(assets).map(([asset, _]) => [
+    asset,
+    { currentValue: BigNumber.from(0), previousValue: BigNumber.from(0) }
+  ])
 ) as IPriceStore
 
 export const sliceName = 'price'
@@ -17,7 +20,11 @@ const priceSlice = createSlice({
   initialState: defaultStatus,
   reducers: {
     setValue(state, action: PayloadAction<{ asset: assets, value: BigNumber }>) {
-      state[action.payload.asset] = action.payload.value
+      state[action.payload.asset].currentValue = action.payload.value
+      return state
+    },
+    setPreviousValue(state, action: PayloadAction<{ asset: assets, value: BigNumber }>) {
+      state[action.payload.asset].previousValue = action.payload.value
       return state
     },
     initializePrices(state) {

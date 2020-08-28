@@ -47,22 +47,33 @@ export class OracleProvider {
     return OracleProvider._instance
   }
 
-  public latestRoundData = async (asset: assets = assets.ETH): Promise<IRoundData> => {
+  public latestRoundData = async (asset: assets): Promise<IRoundData> => {
     const response = await this.contracts[asset].latestRoundData()
     return response
   }
 
   public getRoundData = async (
-    asset: assets = assets.ETH,
+    asset: assets,
     blockOffset: number = 1
   ): Promise<IRoundData> => {
-    const latestRound = await this.latestRoundData()
+    const latestRound = await this.latestRoundData(asset)
     const response = await this.contracts[asset].getRoundData(latestRound.roundId.sub(blockOffset))
     return response
   }
 
-  public getLatestPrice = async (asset: assets = assets.ETH): Promise<BigNumber> => {
+  public getLatestPrice = async (asset: assets): Promise<BigNumber> => {
     const latestRound = await this.latestRoundData(asset)
     return latestRound.answer
+  }
+
+  public getPreviousPrice = async (asset: assets): Promise<BigNumber> => {
+    // seems like not all oracle migrated to new api
+    try {
+      const latestRound = await this.getRoundData(asset)
+      return latestRound.answer
+    } catch (error) {
+      console.log(`error ${asset}`)
+      return BigNumber.from(0)
+    }
   }
 }

@@ -7,13 +7,20 @@ function* getAssetPrice(oracleProvider: OracleProvider, asset: assets): Generato
   const result = yield* call(oracleProvider.getLatestPrice, asset)
   yield put(actions.setValue({ asset: asset, value: result }))
 }
+function* getPreviousAssetPrice(oracleProvider: OracleProvider, asset: assets): Generator {
+  const result = yield* call(oracleProvider.getPreviousPrice, asset)
+  yield put(actions.setPreviousValue({ asset: asset, value: result }))
+}
 
 function* getPrices(): Generator {
   const oracleProvider = yield* call(OracleProvider.getInstance)
-  const getAssetPrices = Object.keys(assets).map((asset) =>
+  const getAssetPrices = Object.keys(assets).map(asset =>
     call(getAssetPrice, oracleProvider, asset as assets)
   )
-  yield all(getAssetPrices)
+  const getPreviousAssetPrices = Object.keys(assets).map(asset =>
+    call(getPreviousAssetPrice, oracleProvider, asset as assets)
+  )
+  yield all(getAssetPrices.concat(getPreviousAssetPrices))
 }
 
 export function* assetPriceSaga(): Generator {
