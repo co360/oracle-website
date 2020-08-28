@@ -21,11 +21,11 @@ const priceSlice = createSlice({
   name: sliceName,
   initialState: defaultStatus,
   reducers: {
-    setValue(state: IPriceStore, action: PayloadAction<{ asset: assets, value: BigNumber }>) {
+    setValue(state, action: PayloadAction<{ asset: assets, value: BigNumber }>) {
       state[action.payload.asset] = action.payload.value
       return state
     },
-    initializePrices(state: IPriceStore) {
+    initializePrices(state) {
       return state
     }
   }
