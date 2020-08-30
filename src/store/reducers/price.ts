@@ -14,7 +14,7 @@ const defaultStatus: IPriceStore = Object.fromEntries(
   ])
 ) as IPriceStore
 
-export const sliceName = 'price'
+export const sliceName = 'assetPrice'
 const priceSlice = createSlice({
   name: sliceName,
   initialState: defaultStatus,

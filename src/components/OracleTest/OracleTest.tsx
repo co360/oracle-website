@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Grid, Typography } from '@material-ui/core'
 
 import { status } from '@selectors/providers'
+import { priceInBTC } from '@selectors/price'
 import { actions, Status } from '@reducers/provider'
 import useStyles from './style'
+import { assets } from '@web3/Contracts/Oracle'
 
 const OracleTest: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const currentStatus = useSelector(status)
+  const assetPrice = useSelector(priceInBTC(assets.ADA))
+  console.log(assetPrice)
   const loadMetamask = async () => {
     dispatch(actions.initProvider())
   }
