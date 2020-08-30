@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography, Grid } from '@material-ui/core'
 import useStyles from './style'
+// You should use aliases for imports aka @components
 import SynthetifyIconHorizontal from '../SynthetifyIconHorizontal/SynthetifyIconHorizontal'
 import Title from '../Title/Title'
-import AssetCard from '../AssetCard/AssetCard'
-import { BigNumber } from 'ethers'
+import AssetCardsWrapper from '@components/AssetCardsWrapper/AssetCardsWrapper'
 
 export const MainPage: React.FC = () => {
   const classes = useStyles()
@@ -24,50 +24,7 @@ export const MainPage: React.FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Grid container direction='column'>
-            <Grid container direction='row' alignItems='center' justify='center' className={classes.cardsRow} spacing={4}>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-            </Grid>
-            <Grid container direction='row' alignItems='center' justify='center' className={classes.cardsRow} spacing={4}>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-            </Grid>
-            <Grid container direction='row' alignItems='center' justify='center' className={classes.cardsRow} spacing={4}>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-              <Grid item>
-                <AssetCard title='ETH' currentPrice={BigNumber.from(1200)}></AssetCard>
-              </Grid>
-            </Grid>
-          </Grid>
+          <AssetCardsWrapper />
         </Grid>
       </Grid>
     </Grid>
