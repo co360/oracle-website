@@ -37,6 +37,27 @@ export const toUsd = (asset: { currentValue: BigNumber, previousValue: BigNumber
     previousValue: asset.previousValue.toNumber() / 100000000
   }
 }
+
+export const toBtc = (
+  asset: { currentValue: BigNumber, previousValue: BigNumber },
+  priceBTC: { currentValue: BigNumber, previousValue: BigNumber }
+) => {
+  if (!priceBTC.currentValue.isZero() && !priceBTC.previousValue.isZero()) {
+    // Prices from oracle are multiplied by 1000000
+    const curPriceInBTC = asset.currentValue.div(priceBTC.currentValue.div(1000000))
+    const prevPriceInBTC = asset.previousValue.div(priceBTC.previousValue.div(1000000))
+    return {
+      currentValue: curPriceInBTC.toNumber() / 1000000,
+      previousValue: prevPriceInBTC.toNumber() / 1000000
+    }
+  } else {
+    return {
+      currentValue: 0,
+      previousValue: 0
+    }
+  }
+}
+
 export const allPricesInUSD = createSelector(assetsPrices, prices => {
   const pricesInUsd = Object.entries(prices).map(([asset, values]) => {
     return {
@@ -47,6 +68,22 @@ export const allPricesInUSD = createSelector(assetsPrices, prices => {
   return pricesInUsd
 })
 
-export const priceSelector = { assetsPrices, initialized, allPricesInUSD }
+export const allPricesInBTC = createSelector(assetsPrices, prices => {
+  const pricesInBTC = Object.entries(prices).map(([asset, values]) => {
+    return {
+      name: asset,
+      price: toBtc(values, prices.BTC)
+    }
+  })
+  return pricesInBTC
+})
+
+export const allPrices = createSelector(allPricesInUSD, allPricesInBTC, (pricesUSD, pricesBTC) =>
+  pricesUSD.map((value, index) => {
+    return { name: value.name, priceUsd: value.price, priceBtc: pricesBTC[index].price }
+  })
+)
+
+export const priceSelector = { assetsPrices, initialized, allPricesInUSD, allPricesInBTC, allPrices }
 
 export default priceSelector

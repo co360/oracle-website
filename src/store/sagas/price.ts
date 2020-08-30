@@ -21,6 +21,7 @@ function* getPrices(): Generator {
     call(getPreviousAssetPrice, oracleProvider, asset as assets)
   )
   yield all(getAssetPrices.concat(getPreviousAssetPrices))
+  yield put(actions.setInitialized(true))
 }
 
 export function* assetPriceSaga(): Generator {

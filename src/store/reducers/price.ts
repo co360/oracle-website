@@ -36,6 +36,10 @@ const priceSlice = createSlice({
     },
     initializePrices(state) {
       return state
+    },
+    setInitialized(state, action: PayloadAction<boolean>) {
+      state.initialized = action.payload
+      return state
     }
   }
 })
