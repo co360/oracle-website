@@ -1,16 +1,17 @@
 import React from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import useStyles from './style'
-import { BigNumber } from 'ethers'
 import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDown'
 
 export interface IProps {
   title: string
-  currentPrice: BigNumber
+  currentPrice: number
+  previousPrice: number
 }
-export const AssetCard: React.FC<IProps> = ({ title, currentPrice }) => {
+// This should use number i changed my mind
+export const AssetCard: React.FC<IProps> = ({ title, currentPrice, previousPrice }) => {
   const classes = useStyles()
-  const trendingDown = title === 'ADA'
+  const trendingDown = currentPrice < previousPrice
 
   return (
     <Grid>

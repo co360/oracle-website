@@ -1,32 +1,52 @@
-import { IPriceStore, sliceName } from '../reducers/price'
+import { IAssetPriceStore, sliceName } from '../reducers/price'
 import { keySelectors, AnyProps } from './helpers'
 import { assets } from '@web3/Contracts/Oracle'
 import { createSelector } from '@reduxjs/toolkit'
 import { BigNumber } from 'ethers'
 
-const store = (s: AnyProps) => s[sliceName] as IPriceStore
+const store = (s: AnyProps) => s[sliceName] as IAssetPriceStore
 
-export const { ADA, BCH, BNT, BTC, ETH } = keySelectors(store, [
-  assets.ADA,
-  assets.BCH,
-  assets.BNT,
-  assets.BTC,
-  assets.ETH
-])
+// This solution will scale into multiple Assets
+export const { assetsPrices, initialized } = keySelectors(store, ['assetsPrices', 'initialized'])
 
-export const priceSelector = { ADA, BCH, BNT, BTC, ETH }
+export const BTC = createSelector(assetsPrices, prices => prices.BTC)
+// We should export it in Number format instead of BigNumber it will save a lot of operation.
 export const priceInBTC = (asset: assets) =>
-  createSelector(store, BTC, (s, b) => {
-    const currentAsset = s[asset]
-    console.log(currentAsset.currentValue)
-    console.log(b.currentValue)
+  createSelector(assetsPrices, BTC, (prices, b) => {
+    const currentAsset = prices[asset]
     if (!b.currentValue.isZero()) {
-      const priceBTC = currentAsset.currentValue.div(b.currentValue)
-      console.log(priceBTC.toString())
-      return priceBTC
+      // Prices from oracle are multiplied by 1000000
+      const priceBTC = currentAsset.currentValue.div(b.currentValue.div(1000000))
+      return priceBTC.toNumber() / 1000000
     } else {
-      return BigNumber.from(0)
+      return 0
     }
   })
+
+export const priceInUSD = (asset: assets) =>
+  createSelector(assetsPrices, prices => {
+    const currentAsset = prices[asset]
+    return toUsd(currentAsset)
+  })
+
+// This is just helper not selector
+export const toUsd = (asset: { currentValue: BigNumber, previousValue: BigNumber }) => {
+  // Prices from oracle are multiplied by 100000000
+  return {
+    currentValue: asset.currentValue.toNumber() / 100000000,
+    previousValue: asset.previousValue.toNumber() / 100000000
+  }
+}
+export const allPricesInUSD = createSelector(assetsPrices, prices => {
+  const pricesInUsd = Object.entries(prices).map(([asset, values]) => {
+    return {
+      name: asset,
+      price: toUsd(values)
+    }
+  })
+  return pricesInUsd
+})
+
+export const priceSelector = { assetsPrices, initialized, allPricesInUSD }
 
 export default priceSelector
