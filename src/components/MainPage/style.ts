@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
   textWrapper: {
     marginTop: 20,
-    marginBottom: 60,
+    marginBottom: 120,
     color: colors.white.main
   },
   cardsRow: {
