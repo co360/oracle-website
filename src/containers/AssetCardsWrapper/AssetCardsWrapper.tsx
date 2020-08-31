@@ -1,0 +1,43 @@
+import React from 'react'
+import { Grid } from '@material-ui/core'
+import useStyles from './style'
+import PricesSelectors from '@selectors/price'
+import { actions } from '@reducers/provider'
+import { useSelector, useDispatch } from 'react-redux'
+import AssetCard from '@components/AssetCard/AssetCard'
+
+export interface IProps {
+  title?: string
+}
+export const AssetCardsWrapper: React.FC<IProps> = () => {
+  const classes = useStyles()
+  // Added for testing
+  // Create container for production and pass prices using props
+  const assetsPrices = useSelector(PricesSelectors.allPrices)
+  const initializedPrices = useSelector(PricesSelectors.initialized)
+  console.log(initializedPrices)
+  const dispatch = useDispatch()
+  React.useEffect(() => {
+    dispatch(actions.initProvider())
+  }, [])
+  return (
+    <Grid container justify='center'>
+      <Grid container justify='center' className={classes.root} spacing={4}>
+        {assetsPrices.map(asset => {
+          return (
+            <Grid item>
+              <AssetCard
+                title={asset.name}
+                currentPrice={asset.priceUsd.currentValue}
+                previousPrice={asset.priceUsd.previousValue}
+                currentPriceBTC={asset.priceBtc.currentValue}
+                initialized={initializedPrices}
+              />
+            </Grid>
+          )
+        })}
+      </Grid>
+    </Grid>
+  )
+}
+export default AssetCardsWrapper

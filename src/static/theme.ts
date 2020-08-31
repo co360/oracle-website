@@ -19,6 +19,9 @@ export const colors = {
   },
   white: {
     main: '#FFFFFF'
+  },
+  red: {
+    main: '#EB5757'
   }
 }
 export const theme = createMuiTheme({

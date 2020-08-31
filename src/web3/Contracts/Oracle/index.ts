@@ -1,20 +1,9 @@
 import { Contract, providers, BigNumber } from 'ethers'
 import { getProvider } from '@web3/access'
 import AggregatorV3InterfaceABI from '@web3/Contracts/ABI/AggregatorV3InterfaceABI'
-export enum assets {
-  'ADA' = 'ADA',
-  'ETH' = 'ETH',
-  'BCH' = 'BCH',
-  'BTC' = 'BTC',
-  'BNT' = 'BNT'
-}
-const UsdContractsAddresses: { [key in assets]: string } = {
-  ADA: '0xAE48c91dF1fE419994FFDa27da09D5aC69c30f55',
-  ETH: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
-  BCH: '0x9F0F69428F923D6c95B781F89E165C9b2df9789D',
-  BNT: '0x1E6cF0D433de4FE882A437ABC654F58E1e78548c',
-  BTC: '0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c'
-}
+import UsdContractsAddresses, { assets } from './oracleAddresses'
+import { providerToNetwork } from '../../static/network'
+
 interface IRoundData {
   roundId: BigNumber
   answer: BigNumber
@@ -32,7 +21,7 @@ export class OracleProvider {
   public contracts: ContractsMap
   private constructor(provider: providers.Web3Provider) {
     this.contracts = Object.fromEntries(
-      Object.entries(UsdContractsAddresses).map(([asset, address]) => [
+      Object.entries(UsdContractsAddresses[providerToNetwork(provider)]).map(([asset, address]) => [
         asset,
         new Contract(address, AggregatorV3InterfaceABI, provider)
       ])
@@ -52,10 +41,7 @@ export class OracleProvider {
     return response
   }
 
-  public getRoundData = async (
-    asset: assets,
-    blockOffset: number = 1
-  ): Promise<IRoundData> => {
+  public getRoundData = async (asset: assets, blockOffset: number = 1): Promise<IRoundData> => {
     const latestRound = await this.latestRoundData(asset)
     const response = await this.contracts[asset].getRoundData(latestRound.roundId.sub(blockOffset))
     return response
