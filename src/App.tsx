@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core'
 import { store } from './store'
 import { theme } from './static/theme'
 
-import WelcomePage from './components/WelcomePage/WelcomePage'
+import WelcomePage from '@containers/WelcomePage/WelcomePage'
 
 const App: React.FC = () => {
   return (

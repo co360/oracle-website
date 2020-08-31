@@ -3,19 +3,23 @@ import { colors } from '@static/theme'
 
 const useStyles = makeStyles(() => ({
   root: {
-    marginTop: 140,
+    marginTop: 30,
     maxWidth: 1360,
     paddingBottom: 140,
+    paddingLeft: 40,
+    paddingRight: 40
   },
   logo: {
-    height: 36
+    height: 36,
+    cursor: 'pointer'
+
   },
   titleTop: {
     marginTop: 80
   },
   textWrapper: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 60,
     color: colors.white.main
   },
   cardsRow: {

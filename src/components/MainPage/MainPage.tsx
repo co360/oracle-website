@@ -4,7 +4,7 @@ import useStyles from './style'
 // You should use aliases for imports aka @components
 import SynthetifyIconHorizontal from '../SynthetifyIconHorizontal/SynthetifyIconHorizontal'
 import Title from '../Title/Title'
-import AssetCardsWrapper from '@components/AssetCardsWrapper/AssetCardsWrapper'
+import AssetCardsWrapper from '@containers/AssetCardsWrapper/AssetCardsWrapper'
 
 export const MainPage: React.FC = () => {
   const classes = useStyles()
@@ -12,7 +12,11 @@ export const MainPage: React.FC = () => {
     <Grid container justify='center'>
       <Grid container className={classes.root} direction='column'>
         <Grid item>
-          <SynthetifyIconHorizontal className={classes.logo} />
+          <SynthetifyIconHorizontal
+            className={classes.logo}
+            // not perfect but its small project
+            onClick={() => window.open('https://synthetify.io')}
+          />
         </Grid>
         <Grid item className={classes.titleTop}>
           <Title />

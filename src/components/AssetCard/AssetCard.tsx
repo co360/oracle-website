@@ -44,7 +44,7 @@ export const AssetCard: React.FC<IProps> = ({
               <Grid container direction='column'>
                 <Grid item>
                   <Typography variant='body2' className={classes.text}>
-                    $ {currentPrice.toString()}
+                    USD {currentPrice.toFixed(4).toString()} $
                   </Typography>
                 </Grid>
                 <Grid item>
