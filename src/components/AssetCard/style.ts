@@ -15,21 +15,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 44,
     height: 44,
     marginRight: -5,
-    marginTop: -25,
     transform: 'rotate(-180deg)',
     color: colors.green.main
   },
   trendDown: {
     width: 44,
     height: 44,
-    marginTop: -30,
     marginRight: -5,
     color: colors.red.main
   },
+  arrowWrapper: {
+    maxWidth: 44,
+    maxHeight: 44
+  },
   title: {
     fontWeight: 'bold',
-    color: colors.blue.accent,
-    paddingBottom: 30
+    color: colors.blue.accent
   },
   text: {
     color: colors.black.background,
@@ -70,6 +71,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 220,
     marginTop: -10,
     backgroundColor: colors.gray.skeletonField
+  },
+  spacing30: {
+    marginTop: 20
+  },
+  assetIcon: {
+    marginRight: 8,
+    width: 32,
+    height: 32
   }
 }))
 
