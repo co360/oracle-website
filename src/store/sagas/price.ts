@@ -1,7 +1,8 @@
 import { call, takeLeading, put, all } from 'typed-redux-saga'
 
 import { actions } from '@reducers/price'
-import { OracleProvider, assets } from '@web3/Contracts/Oracle'
+import { OracleProvider } from '@web3/Contracts/Oracle'
+import { assets } from '@web3/Contracts/Oracle/oracleAddresses'
 
 function* getAssetPrice(oracleProvider: OracleProvider, asset: assets): Generator {
   const result = yield* call(oracleProvider.getLatestPrice, asset)

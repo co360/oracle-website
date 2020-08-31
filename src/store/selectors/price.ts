@@ -1,6 +1,6 @@
 import { IAssetPriceStore, sliceName } from '../reducers/price'
 import { keySelectors, AnyProps } from './helpers'
-import { assets } from '@web3/Contracts/Oracle'
+import { assets } from '@web3/Contracts/Oracle/oracleAddresses'
 import { createSelector } from '@reduxjs/toolkit'
 import { BigNumber } from 'ethers'
 

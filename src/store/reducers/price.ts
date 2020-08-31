@@ -1,6 +1,6 @@
 import { BigNumber } from 'ethers'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { assets } from '@web3/Contracts/Oracle'
+import { assets } from '@web3/Contracts/Oracle/oracleAddresses'
 import { PayloadType } from './types'
 
 export type IPriceStore = {
