@@ -11,7 +11,9 @@ export const colors = {
     base: '#0B2545'
   },
   gray: {
-    base: '#8DA9C4'
+    base: '#8DA9C4',
+    skeletonBackground: '#8E8B8B',
+    skeletonField: '#C4C4C4'
   },
   green: {
     main: '#00F9BB',

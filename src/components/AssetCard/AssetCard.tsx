@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDown'
+import Skeleton from '@material-ui/lab/Skeleton'
 import useStyles from './style'
 
 export interface IProps {
@@ -23,9 +24,9 @@ export const AssetCard: React.FC<IProps> = ({
 
   return (
     <Grid>
-      <Grid container direction='column' className={classes.root}>
-        {initialized ? (
-          <>
+      {initialized ? (
+        <>
+          <Grid container direction='column' className={classes.root}>
             <Grid item>
               <Grid container alignItems='center' justify='center'>
                 <Grid item>
@@ -54,12 +55,33 @@ export const AssetCard: React.FC<IProps> = ({
                 </Grid>
               </Grid>
             </Grid>
-          </>
-        ) : (
-          <div />
-        )}
-      </Grid>
-      <div className={trendingDown ? classes.markerDown : classes.marker} />
+          </Grid>
+          <div className={trendingDown ? classes.markerDown : classes.marker} />
+        </>
+      ) : (
+        <>
+          <Grid container direction='column' className={classes.skeletonRoot}>
+            <Grid item>
+              <Grid container alignItems='center' justify='center'>
+                <Grid item>
+                  <Skeleton className={classes.skeletonTitle} variant='text' />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item className={classes.skeletonPrices}>
+              <Grid container direction='column'>
+                <Grid item>
+                  <Skeleton className={classes.skeletonTitle} variant='text' />
+                </Grid>
+                <Grid item>
+                  <Skeleton className={classes.skeletonTitle} variant='text' />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Skeleton className={classes.skeletonMarker} variant='rect' />
+        </>
+      )}
     </Grid>
   )
 }

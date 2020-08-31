@@ -46,6 +46,30 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 220,
     marginTop: -10,
     backgroundColor: colors.red.main
+  },
+  skeletonTitle: {
+    backgroundColor: colors.gray.skeletonField,
+    borderRadius: 10,
+    width: 150,
+    height: 30
+  },
+  skeletonRoot: {
+    height: 180,
+    width: 220,
+    paddingTop: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+    backgroundColor: colors.gray.skeletonBackground,
+    borderRadius: '10px 10px 0px 0px'
+  },
+  skeletonPrices: {
+    marginTop: 30
+  },
+  skeletonMarker: {
+    height: 10,
+    width: 220,
+    marginTop: -10,
+    backgroundColor: colors.gray.skeletonField
   }
 }))
 

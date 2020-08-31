@@ -23,8 +23,8 @@ export const MainPage: React.FC = () => {
         </Grid>
         <Grid item className={classes.textWrapper}>
           <Typography variant='body1'>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
-            consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+            To ensure security and validity of operations of our protocol, Synthetify uses multiple
+            decentralized price oracles provided by Chainlink and maintained by community.
           </Typography>
         </Grid>
         <Grid item>
