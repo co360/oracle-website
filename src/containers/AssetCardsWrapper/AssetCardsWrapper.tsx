@@ -15,7 +15,6 @@ export const AssetCardsWrapper: React.FC<IProps> = () => {
   // Create container for production and pass prices using props
   const assetsPrices = useSelector(PricesSelectors.allPrices)
   const initializedPrices = useSelector(PricesSelectors.initialized)
-  console.log(initializedPrices)
   const dispatch = useDispatch()
   React.useEffect(() => {
     dispatch(actions.initProvider())

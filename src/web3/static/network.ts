@@ -6,6 +6,5 @@ export enum Network {
   // RINKEBY = 4
 }
 export const providerToNetwork = (provider: providers.Web3Provider): Network => {
-  console.log(provider.network.chainId)
   return provider.network.chainId
 }
