@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography, Grid } from '@material-ui/core'
-import useStyles from './style'
 // You should use aliases for imports aka @components
 import SynthetifyIconHorizontal from '../SynthetifyIconHorizontal/SynthetifyIconHorizontal'
 import Title from '../Title/Title'
 import AssetCardsWrapper from '@containers/AssetCardsWrapper/AssetCardsWrapper'
+import useStyles from './style'
 
 export const MainPage: React.FC = () => {
   const classes = useStyles()

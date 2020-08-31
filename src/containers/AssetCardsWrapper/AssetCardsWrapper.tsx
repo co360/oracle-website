@@ -1,10 +1,10 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import useStyles from './style'
 import PricesSelectors from '@selectors/price'
 import { actions } from '@reducers/provider'
 import { useSelector, useDispatch } from 'react-redux'
 import AssetCard from '@components/AssetCard/AssetCard'
+import useStyles from './style'
 
 export interface IProps {
   title?: string

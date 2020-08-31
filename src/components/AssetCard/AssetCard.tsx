@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import useStyles from './style'
 import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDown'
+import useStyles from './style'
 
 export interface IProps {
   title: string
