@@ -19,7 +19,7 @@ export const AssetCardsWrapper: React.FC<IProps> = () => {
   const dispatch = useDispatch()
   React.useEffect(() => {
     dispatch(actions.initProvider())
-  }, [])
+  }, [dispatch])
   return (
     <Grid container justify='center'>
       <Grid container justify='center' className={classes.root} spacing={4}>
