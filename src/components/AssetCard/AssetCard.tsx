@@ -39,7 +39,7 @@ export const AssetCard: React.FC<IProps> = ({
             <Grid item>
               <Grid container alignItems='center' justify='center'>
                 <Grid item className={classes.assetIcon}>
-                  {icon && <img src={icon}></img>}
+                  {icon && <img src={icon} alt='' />}
                 </Grid>
                 <Grid item>
                   <Typography variant='body1' className={classes.title}>

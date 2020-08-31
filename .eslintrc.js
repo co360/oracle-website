@@ -4,6 +4,7 @@ module.exports = {
     project: './tsconfig.json'
   },
   parser: '@typescript-eslint/parser',
+  plugins: ['react-hooks'],
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
@@ -14,6 +15,8 @@ module.exports = {
     '@typescript-eslint/space-before-function-paren': 'off',
     'generator-star-spacing': ['error', { before: false, after: true }],
     'yield-star-spacing': ['error', { before: false, after: true }],
+    'react-hooks/exhaustive-deps': 'off',
+    'react-hooks/rules-of-hooks': 'error',
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
