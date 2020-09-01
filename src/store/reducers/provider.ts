@@ -8,11 +8,12 @@ export enum Status {
 }
 export interface IProviderStore {
   status: Status
-  message?: ''
+  message: string
 }
 
 export const defaultState: IProviderStore = {
-  status: Status.Uninitialized
+  status: Status.Uninitialized,
+  message: ''
 }
 export const sliceName = 'provider'
 const providerSlice = createSlice({
@@ -25,6 +26,10 @@ const providerSlice = createSlice({
     },
     setStatus(state, action: PayloadAction<Status>) {
       state.status = action.payload
+      return state
+    },
+    setMessage(state, action: PayloadAction<string>) {
+      state.message = action.payload
       return state
     }
   }
