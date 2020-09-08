@@ -28,5 +28,5 @@ jobs:
           aws-region: "eu-central-1"
       - name: Deploy app to S3 bucket
         run: aws s3 cp build/artifacts.zip s3://${{ secrets.AWS_BUCKET }}/oracle/
-      - name: Trigger pipeline
-        run: aws codepipeline start-pipeline-execution --name ${{ secrets.AWS_STAGING_PIPELINE }} --region eu-central-1
+      - name: Trigger lambda
+        run: aws --region eu-central-1 lambda invoke --function-name ${{ secrets.AWS_LAMBDA }} outfile
